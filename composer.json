@@ -1,0 +1,31 @@
+{
+    "name": "morontt/reprogl-autotests",
+    "type": "project",
+    "description": "Autotests for Xelbot.com/reprogl project",
+    "license": "Zlib",
+    "autoload": {
+        "psr-4": {
+            "Reprogl\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "behat/behat": "^3.14",
+        "behat/mink-browserkit-driver": "^2.2",
+        "friends-of-behat/mink-extension": "^2.7",
+        "fzaninotto/faker": "1.9.x-dev",
+        "symfony/dotenv": "^6.4",
+        "symfony/http-client": "^6.4",
+        "symfony/mime": "^6.4",
+        "symfony/property-access": "^6.4"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.60"
+    },
+    "config": {
+        "bin-dir": "bin",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
