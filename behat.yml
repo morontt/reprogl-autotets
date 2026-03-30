@@ -1,0 +1,19 @@
+default:
+    formatters:
+        pretty: true
+
+    extensions:
+        Behat\MinkExtension:
+            base_url: "https://zendblog.xelbot.com"
+            sessions:
+                default:
+                    browserkit_http: ~
+        Behat\Testwork\Translator\ServiceContainer\TranslatorExtension:
+            locale: "en"
+
+    suites:
+        auth_features:
+            paths:
+                - "%paths.base%/features/Auth"
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
