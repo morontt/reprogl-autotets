@@ -26,3 +26,22 @@ Feature: Access control
     Then the response status code should be 200
     And I should see "Sed accusantium nesciunt qui ipsam."
     And I should see "Если — хочешь собак, так купи собак."
+
+  Scenario: Check API root page as admin
+    Given I am on "/api"
+    Then I should be on "/login"
+
+    When I fill in "_username" with "admin"
+    And I fill in "_password" with "test"
+    And I press "login"
+    Then the response status code should be 200
+    And I should see "API root path"
+
+  Scenario: Check API root page as guest
+    Given I am on "/api"
+    Then I should be on "/login"
+
+    When I fill in "_username" with "gerasimov"
+    And I fill in "_password" with "test"
+    And I press "login"
+    Then the response status code should be 403
