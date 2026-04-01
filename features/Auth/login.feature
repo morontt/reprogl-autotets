@@ -1,8 +1,8 @@
 Feature: Authentication
-  Check login page
+  Check login page in admin dashboard
 
   Scenario: Check login page
-    Given I am on homepage
+    Given I am on "/admin"
     Then I should see "login"
 
     When I fill in "_username" with "admin"
@@ -12,9 +12,7 @@ Feature: Authentication
     And I should see "Превед, admin"
 
   Scenario: Check login with incorrect password
-    Given I am on homepage
-    Then I should see "login"
-
+    Given I am on "/admin/login"
     When I fill in "_username" with "admin"
     And I fill in "_password" with "test2"
     And I press "login"
@@ -22,9 +20,7 @@ Feature: Authentication
     And I should see "Недействительные аутентификационные данные."
 
   Scenario: Check login with incorrect username
-    Given I am on homepage
-    Then I should see "login"
-
+    Given I am on "/admin/login"
     When I fill in "_username" with "hacker"
     And I fill in "_password" with "secret"
     And I press "login"
