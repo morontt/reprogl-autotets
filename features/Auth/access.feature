@@ -36,6 +36,14 @@ Feature: Access control
     And I should see "Sed accusantium nesciunt qui ipsam."
     And I should see "Если — хочешь собак, так купи собак."
 
+  Scenario: Login by secure cookie as guest
+    Given I am on "/login"
+    When I fill in "username" with "gerasimov"
+    And I fill in "password" with "test"
+    And I press "login"
+    And I go to "/admin"
+    Then the response status code should be 403
+
   Scenario: Check API root page as admin
     Given I am on "/api"
     Then I should be on "/admin/login"

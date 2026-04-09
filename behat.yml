@@ -16,4 +16,4 @@ default:
             paths:
                 - "%paths.base%/features/Auth"
             contexts:
-                - Behat\MinkExtension\Context\MinkContext
+                - Reprogl\Context\FeatureContext

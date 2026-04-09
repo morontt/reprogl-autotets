@@ -26,3 +26,22 @@ Feature: Authentication
     And I press "login"
     Then the response status code should be 200
     And I should see "Недействительные аутентификационные данные."
+
+  Scenario: Login by secure cookie
+    Given I am on "/login"
+    When I fill in "username" with "admin"
+    And I fill in "password" with "test"
+    And I press "login"
+    And I go to "/admin"
+    Then the response status code should be 200
+    And I should see "Превед, admin"
+
+  Scenario: Logout and clear secure cookie
+    Given I am on "/login"
+    When I fill in "username" with "admin"
+    And I fill in "password" with "test"
+    And I press "login"
+    And I go to "/admin"
+    And I follow "logout_link"
+    And I go to "/admin"
+    Then I should be on "/admin/login"
