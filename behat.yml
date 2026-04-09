@@ -17,3 +17,8 @@ default:
                 - "%paths.base%/features/Auth"
             contexts:
                 - Reprogl\Context\FeatureContext
+        blog_features:
+            paths:
+                - "%paths.base%/features/Blog"
+            contexts:
+                - Reprogl\Context\FeatureContext

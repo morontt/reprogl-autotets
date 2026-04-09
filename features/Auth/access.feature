@@ -23,7 +23,7 @@ Feature: Access control
     And I press "login"
     Then the response status code should be 200
     And I should see "Et eos et eum quia eius iusto."
-    And I should see "Потом надел перед зеркалом."
+    And I should see "Собакевич подтвердил это делом"
 
   Scenario: Check preview page as guest
     Given I am on "/admin/preview/nulla-quos-quisquam"
