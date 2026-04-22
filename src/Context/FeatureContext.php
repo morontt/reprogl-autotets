@@ -32,9 +32,9 @@ class FeatureContext extends MinkContext
     #[When('I logged in as :username')]
     public function iLoggedInAsUsername(string $username)
     {
-        $this->visit('/admin/login');
-        $this->fillField('_username', $username);
-        $this->fillField('_password', 'test');
+        $this->visit('/login');
+        $this->fillField('username', $username);
+        $this->fillField('password', 'test');
         $this->pressButton('login');
     }
 

@@ -35,3 +35,17 @@ Feature: Comments
     When I press "Добавить комментарий"
     Then I should see "name - Значение не должно быть пустым."
     And I should see "comment_text - Значение не должно быть пустым."
+
+  Scenario: Submit comment as user
+    Given I logged in as "danilov"
+    And I assign parameters with data:
+      | key         | value            |
+      | commentText | #{randomComment} |
+    When I am on "/article/asperiores-non-dolor"
+    Then I should not see a "form input#name" element
+    And I should not see a "form input#email" element
+    And I should not see a "form input#website" element
+    And I should not see value "$commentText" in the "section.comments" element
+    When I fill in "comment_text" with value "$commentText"
+    And I press "Добавить комментарий"
+    Then I should see value "$commentText" in the "section.comments" element
