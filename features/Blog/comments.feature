@@ -10,7 +10,28 @@ Feature: Comments
       | key         | value            |
       | commentText | #{randomComment} |
     And I am on "/article/voluptatibus-iste-aliquam"
+    Then I should not see value "$commentText" in the "section.comments" element
     When I fill in "name" with "pupkin"
     And I fill in "comment_text" with value "$commentText"
     And I press "Добавить комментарий"
-    Then I should see "Lorem ipsum" in the "section.comments" element
+    Then I should see value "$commentText" in the "section.comments" element
+
+  Scenario: Add comment without name
+    Given I am on "/article/voluptatibus-iste-aliquam"
+    When I fill in "comment_text" with value "Lorem ipsum"
+    And I press "Добавить комментарий"
+    Then I should see "name - Значение не должно быть пустым."
+
+  Scenario: Add comment with invalid email
+    Given I am on "/article/voluptatibus-iste-aliquam"
+    When I fill in "name" with "pupkin"
+    And I fill in "mail" with "pupkin"
+    And I fill in "comment_text" with value "Lorem ipsum"
+    And I press "Добавить комментарий"
+    Then I should see "email - Значение адреса электронной почты недопустимо."
+
+  Scenario: Submit empty comment
+    Given I am on "/article/voluptatibus-iste-aliquam"
+    When I press "Добавить комментарий"
+    Then I should see "name - Значение не должно быть пустым."
+    And I should see "comment_text - Значение не должно быть пустым."

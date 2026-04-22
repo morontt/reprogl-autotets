@@ -15,6 +15,7 @@ use Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Step\Given;
+use Behat\Step\Then;
 use Behat\Step\When;
 use Reprogl\Utils\ValueGenerator;
 
@@ -69,6 +70,22 @@ class FeatureContext extends MinkContext
         $value = $this->fixStepArgument($value);
 
         $this->fillField($field, $this->getContextValue($value));
+    }
+
+    #[Then('I should see value :value in the :element element')]
+    public function iShouldSeeValueInTheElement($value, $element): void
+    {
+        $value = $this->fixStepArgument($value);
+
+        $this->assertSession()->elementTextContains('css', $element, $this->getContextValue($value));
+    }
+
+    #[Then('I should not see value :value in the :element element')]
+    public function iShouldNotSeeValueInTheElement($value, $element): void
+    {
+        $value = $this->fixStepArgument($value);
+
+        $this->assertSession()->elementTextNotContains('css', $element, $this->getContextValue($value));
     }
 
     private function getContextValue(string $value): mixed
