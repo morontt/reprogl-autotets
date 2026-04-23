@@ -13,6 +13,7 @@ namespace Reprogl\Context;
 use Behat\Behat\Hook\Scope\AfterStepScope;
 // use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Hook\AfterStep;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Step\Given;
 use Behat\Step\Then;
@@ -38,9 +39,7 @@ class FeatureContext extends MinkContext
         $this->pressButton('login');
     }
 
-    /**
-     * @AfterStep
-     */
+    #[AfterStep]
     public function printLastResponseOnError(AfterStepScope $event)
     {
         if (!$event->getTestResult()->isPassed()) {
@@ -88,6 +87,23 @@ class FeatureContext extends MinkContext
         $this->assertSession()->elementTextNotContains('css', $element, $this->getContextValue($value));
     }
 
+    #[When('I remembered the number of comments')]
+    public function iRememberedTheNumberOfComments(): void
+    {
+        $this->parameters['comments_cnt'] = $this->extractNumberOfComments();
+    }
+
+    #[Then('the comment counter has increased')]
+    public function theCommentCounterHasIncreased(): void
+    {
+        $cnt = $this->extractNumberOfComments();
+        $oldCnt = $this->parameters['comments_cnt'] ?? 0;
+
+        if ($cnt !== $oldCnt +1) {
+            throw new \Exception('Invalid comments counter value');
+        }
+    }
+
     private function getContextValue(string $value): mixed
     {
         if (preg_match('/\$[A-Za-z_]+/', $value)) {
@@ -107,5 +123,15 @@ class FeatureContext extends MinkContext
         }
 
         return $result;
+    }
+
+    private function extractNumberOfComments(): int
+    {
+        $element = $this->assertSession()->elementExists('css', 'section.comments');
+        $attributeValue = (string)$element->getAttribute('data-cnt');
+
+        echo 'Number of comments: ' . $attributeValue;
+
+        return (int)$attributeValue;
     }
 }

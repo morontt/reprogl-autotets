@@ -13,8 +13,10 @@ Feature: Comments
     Then I should not see value "$commentText" in the "section.comments" element
     When I fill in "name" with "pupkin"
     And I fill in "comment_text" with value "$commentText"
+    And I remembered the number of comments
     And I press "Добавить комментарий"
     Then I should see value "$commentText" in the "section.comments" element
+    And the comment counter has increased
 
   Scenario: Add comment without name
     Given I am on "/article/voluptatibus-iste-aliquam"
@@ -47,5 +49,7 @@ Feature: Comments
     And I should not see a "form input#website" element
     And I should not see value "$commentText" in the "section.comments" element
     When I fill in "comment_text" with value "$commentText"
+    And I remembered the number of comments
     And I press "Добавить комментарий"
     Then I should see value "$commentText" in the "section.comments" element
+    And the comment counter has increased
